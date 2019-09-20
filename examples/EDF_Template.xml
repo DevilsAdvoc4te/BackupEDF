@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+*******************************************************************************
+ This is the template file for creating a custom service.  The way this file is
+ written, you can easily take this file, modify the specified locations, and 
+ then this file is ready to be loaded.  All variables should be replaced with
+ real values.  Variables are prefixed and postfixed with "__".  
+ ie: __SERVICEID__
+ A brief description of each section also follows.
+*******************************************************************************
+-->
+<!--
+*******************************************************************************
+This is the area which defines the custom service details.
+__AUTHOR__ is the author of the service file
+__CREATIONDATE__ is the date the service file was created
+__SERVICEID__ is the serviceid given to this service
+__DBTABLENAME__ is the name of the data table for this service
+__DISPLAYNAME__ is the textual description of the service, shown on dashboards
+    and notifications
+__SERVICEDESCRIPTION__ is a short description of what the service does
+NOTES:
+- When choosing a __SERVICEID__, you must choose something that is unique.  To 
+  make sure that you do, please check the file in CVS to make sure there are
+  no conflicts.
+  http://cvs.engineering.n-able.com/cgi-bin/viewcvs.cgi/ProfServ/Documents/Custom%20Services%20Tracking.xls
+- __DBTABLENAME__ must be unique across all services and be prefixed with 
+  "data".  A good convention to follow would be to prefix this value with 
+  "data_edf_"
+- __DISPLAYNAME__ must be unique across all services.  A good convention to 
+  Follow would be to suffix this value with " (EDF)"
+- Everything else, do not touch.
+*******************************************************************************
+-->
+<service author="__AUTHOR__" creationdate="__CREATIONDATE__" organization="N-able Technologies"
+	syntaxversion="1.1.0.0" version="4.5.0.1" xmlns="http://www.n-able.com" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.n-able.com 
+	file:///opt/nable/var/ncsai/etc/custom_service_v1_1_0_0.xsd">
+    <servicedefinition customservice="true" dashboardid="1" dbtable="__DBTABLENAME__" exportable="true"
+		displaystatus="true" id="__SERVICEID__" isgenericservice="true" reason="" releasedependency="4.5.0.1"
+		servicetype="EDF" version="4.5.0.1">
+		<description country="ca" language="en">__DISPLAYNAME__</description>
+		<displayname country="ca" language="en">__DISPLAYNAME__</displayname>
+		<help country="ca" language="en">__SERVICEDESCRIPTION__</help>
+		<popuphelp country="ca" language="en">Popup Help</popuphelp>
+		<!--
+*******************************************************************************
+This is the area which describes service specific details.  In particular, 
+the time to stale values.
+__TIMETOSTALE__ is the amount of time in minutes that the server has to wait
+   before it considers a task of this service to be stale
+- Everything else, do not touch.
+*******************************************************************************
+-->
+		<serviceparameters aggregatedata="true" aggregatetasks="false" maxinstances="1" maxpollrate="1440" minpollrate="5"
+			schedulertype="Interval Based Scheduler" serviceinstancetype="Single" timetostale="__TIMETOSTALE__" />
+		<!--
+*******************************************************************************
+This is the area which tells the server which scan details to look for later.
+There must be one line for each scan detail.
+__SCANDETAILID00__ is composed by the calculation 
+  __SERVICEID__ * 100 + <scandetail#> - 1.  For example, 
+  if __SERVICEID__ = 25502, then __SCANDETAILID00__ = 2550200, 
+  __SCANDETAILID01__ = 2550201, ...
+NOTES:
+- There must be atleast one line for each scan detail.
+- For this template, we are going to have 4 scan details.
+*******************************************************************************
+-->
+		<scandetails>
+			<scandetailid>__SCANDETAILID00__</scandetailid>
+			<scandetailid>__SCANDETAILID01__</scandetailid>
+			<scandetailid>__SCANDETAILID02__</scandetailid>
+			<scandetailid>__SCANDETAILID03__</scandetailid>
+		</scandetails>
+		<!--
+*******************************************************************************
+This is the area which describes the parameters for the service.  As this is 
+an EDF service, the EDF application does not talk to the central server for
+parameters, therefore this section is useless.  Do not delete this section as 
+the server needs atleast one entry in this section to load properly.  Note 
+that this value is hardcoded, so it will not show up on the screen in the UI.
+*******************************************************************************
+-->
+		<moduleparameters>
+			<moduleparameter key="scan_interval" max="1440" min="5" phardcoded="true" preferredident="false"
+				type="Integer" value="30">
+				<shortdescription country="ca" language="en">Scan Interval</shortdescription>
+				<longdescription country="ca" language="en">Task scan interval</longdescription>
+				<help country="ca" language="en">The number of minutes between scans.</help>
+			</moduleparameter>
+		</moduleparameters>
+	</servicedefinition>
+<!--
+*******************************************************************************
+This is the area where scan details are described one by one.  There are four
+examples in this section with thresholds setup where needed, showing the main
+types of scan details. All possible scan detail types are listed at the end of 
+this file.
+*******************************************************************************
+-->
+<!--
+*******************************************************************************
+This is an example of a scan detail which is of type string.
+__SCANDETAILID00__ is the scan detail id, which must be the same as in the 
+   above scan detail section
+__SCANDETAIL00DESC__ is the description of the scan detail which will be shown
+   on the UI
+__SCANDETAIL00NAME__ is the name of the scan detail
+NOTES:
+- __SCANDETAILID00__ must be the same as defined in the above scandetails 
+   section.
+- __SCANDETAILID00NAME__ must be unique between all scan details of all 
+   services.  It is recommended that you prefix this value with "EDF_SERVICEID_"
+- String scan details are not used for the processing of state or for reports.
+   Also, they cannot have thresholds.
+*******************************************************************************
+-->
+    <scandetail id="__SCANDETAILID00__" processforstate="false" monitoringtypeon="true" releasedependency="4.5.0.1"
+		version="4.5.0.1">
+		<thresholddefaults>
+			<thresholds configurable="false" type="String" />
+		</thresholddefaults>
+		<description country="ca" language="en">__SCANDETAIL00DESC__</description>
+		<help country="ca" language="en">Help</help>
+		<popuphelp country="ca" language="en">Popup Help</popuphelp>
+		<displayname country="ca" language="en">__SCANDETAIL00NAME__</displayname>
+	</scandetail>
+<!--
+*******************************************************************************
+This is an example of a scan detail which is of type uint16.
+__SCANDETAILID01__ is the scan detail id, which must be the same as in the 
+   above scan detail section
+__SCANDETAIL01DESC__ is the description of the scan detail which will be shown
+   on the UI
+__SCANDETAIL01NAME__ is the name of the scan detail
+__MONITORINGTYPEON01__ is used to let the server know if this service will have 
+this threshold turned on by default.  By default, this value is "true".
+NOTES:
+- __SCANDETAILID01__ must be the same as defined in the above scandetails 
+   section.
+- __SCANDETAILID01NAME__ must be unique between all scan details of all 
+   services.  It is recommended that you prefix this value with "EDF_SERVICEID_"
+*******************************************************************************
+-->
+    <scandetail id="__SCANDETAILID01__" processforstate="true" monitoringtypeon="__MONITORINGTYPEON01__"
+		releasedependency="4.5.0.1" version="5.1.0.0" unit="Lines" unitcategory="Number">
+		<thresholddefaults>
+			<thresholds configurable="true" type="uint16">
+				<threshold high="65535" low="120" state="Failed" />
+				<threshold high="125" low="75" state="Warning" />
+				<threshold high="70" low="0" state="Normal" />
+			</thresholds>
+		</thresholddefaults>
+		<description country="ca" language="en">__SCANDETAIL01DESC__</description>
+		<help country="ca" language="en">Help</help>
+		<popuphelp country="ca" language="en">Popup Help</popuphelp>
+		<displayname country="ca" language="en">__SCANDETAIL01NAME__</displayname>
+	</scandetail>
+<!--
+*******************************************************************************
+This is an example of a scan detail which is of type Boolean.
+__SCANDETAILID02__ is the scan detail id, which must be the same as in the 
+   above scan detail section
+__SCANDETAIL02DESC__ is the description of the scan detail which will be shown
+   on the UI
+__SCANDETAIL02NAME__ is the name of the scan detail
+__MONITORINGTYPEON02__ is used to let the server know if this service will have 
+this threshold turned on by default.  By default, this value is "true".
+NOTES:
+- __SCANDETAILID02__ must be the same as defined in the above scandetails 
+   section.
+- __SCANDETAILID02NAME__ must be unique between all scan details of all 
+   services.  It is recommended that you prefix this value with "EDF_SERVICEID_"
+*******************************************************************************
+-->
+    <scandetail id="__SCANDETAILID02__" processforstate="true" monitoringtypeon="__MONITORINGTYPEON02__"
+		showinreport="false" releasedependency="4.5.0.1" version="5.1.0.0" unit="Lines" unitcategory="Number">
+		<thresholddefaults>
+			<thresholds configurable="true" type="Boolean">
+				<threshold high="1" low="1" state="Normal" />
+				<threshold high="0" low="0" state="Failed" />
+			</thresholds>
+		</thresholddefaults>
+		<description country="ca" language="en">__SCANDETAIL02DESC__</description>
+		<help country="ca" language="en">Help</help>
+		<popuphelp country="ca" language="en">Popup Help</popuphelp>
+		<displayname country="ca" language="en">__SCANDETAIL02NAME__</displayname>
+	</scandetail>
+<!--
+*******************************************************************************
+This is an example of a scan detail which is of type Percentage.
+__SCANDETAILID03__ is the scan detail id, which must be the same as in the 
+   above scan detail section
+__SCANDETAIL03DESC__ is the description of the scan detail which will be shown
+   on the UI
+__SCANDETAIL03NAME__ is the name of the scan detail
+__MONITORINGTYPEON03__ is used to let the server know if this service will have 
+this threshold turned on by default.  By default, this value is "true".
+NOTES:
+- __SCANDETAILID03__ must be the same as defined in the above scandetails 
+   section.
+- __SCANDETAILID03NAME__ must be unique between all scan details of all 
+   services.  It is recommended that you prefix this value with "EDF_SERVICEID_"
+*******************************************************************************
+-->
+        <scandetail id="__SCANDETAILID03__" processforstate="true" monitoringtypeon="__MONITORINGTYPEON03__"
+		releasedependency="4.5.0.1" version="5.1.0.0" unit="Percent">
+		<thresholddefaults>
+			<thresholds configurable="true" type="Percentage">
+				<threshold high="30" low="0" state="Normal" />
+				<threshold high="85" low="25" state="Warning" />
+				<threshold high="100" low="80" state="Failed" />
+			</thresholds>
+		</thresholddefaults>
+		<description country="ca" language="en">__SCANDETAIL03DESC__</description>
+		<help country="ca" language="en">Help</help>
+		<popuphelp country="ca" language="en">Popup Help</popuphelp>
+		<displayname country="ca" language="en">__SCANDETAIL03NAME__</displayname>
+	</scandetail>
+    </scandetail>
+</service>
+<!--
+*******************************************************************************
+Scan Detail Data Types
+         name         |         min          |         max          | thresholdable
+----------------------|----------------------|----------------------|---------------
+ Percentage           |                    0 |                  100 | True
+ Time to Live         |                    0 |                  255 | True
+ Response Time (msec) |                    0 |               600000 | True
+ Boolean              |                    0 |                    1 | True
+ String               |                    0 |                  250 | False
+ Dword                |                    0 |                65535 | True
+ IP                   |                    0 |                   16 | False
+ Integer              |                    0 |                65535 | True
+ Timestamp            |                    0 |                  250 | False
+ Boolean w/ Error     |                   -1 |                    1 | True
+ Long Integer         |                    0 |           2147483647 | True
+ Timezone             |                  -12 |                   13 | True
+ LongLong             |                    0 |  9223372036854775807 | True
+ int8                 |                 -128 |                  127 | True
+ uint8                |                    0 |                  255 | True
+ int16                |               -32768 |                32767 | True
+ uint16               |                    0 |                65535 | True
+ int32                |          -2147483648 |           2147483647 | True
+ uint32               |                    0 |           4294967295 | True
+ int64                | -9223372036854775808 |  9223372036854775807 | True
+ uint64               |                    0 | 18446744073709551615 | True
+ String - Short       |                    0 |                   50 | False
+ String - Long        |                    0 |                 1024 | False
+ String - Very Long   |                    0 |                 8196 | False
+ Extended Percentage  |                    0 |                65535 | True
+
+*******************************************************************************
+-->

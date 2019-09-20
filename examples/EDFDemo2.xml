@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<service author="Dennis McNamer" creationdate="Oct 12, 2006" organization="N-able Technologies"
+	syntaxversion="1.1.0.0" version="4.5.0.1" xmlns="http://www.n-able.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.n-able.com file:///opt/nable/var/ncsai/etc/custom_service_v1_1_0_0.xsd">
+	<servicedefinition customservice="true" dashboardid="1" dbtable="data_edf_25505" exportable="true"
+		displaystatus="true" id="25505" isgenericservice="true" reason="" releasedependency="4.5.0.1" servicetype="EDF"
+		version="4.5.0.1">
+		<description country="ca" language="en">EDF Demo 2</description>
+		<displayname country="ca" language="en">EDF Demo 2</displayname>
+		<help country="ca" language="en">Popup Help</help>
+		<popuphelp country="ca" language="en">Popup Help</popuphelp>
+		<serviceparameters aggregatedata="true" aggregatetasks="false" maxinstances="1" maxpollrate="1440"
+			minpollrate="5" schedulertype="Interval Based Scheduler" serviceinstancetype="Single" timetostale="1440" />
+		<scandetails>
+			<scandetailid>2550500</scandetailid>
+			<scandetailid>2550501</scandetailid>
+			<scandetailid>2550502</scandetailid>
+		</scandetails>
+		<moduleparameters>
+			<moduleparameter key="scan_interval" max="1440" min="5" phardcoded="true" preferredident="false"
+				type="Integer" value="30">
+				<shortdescription country="ca" language="en">Scan Interval</shortdescription>
+				<longdescription country="ca" language="en">Task scan interval</longdescription>
+				<help country="ca" language="en">The number of minutes between scans.</help>
+			</moduleparameter>
+		</moduleparameters>
+	</servicedefinition>
+	<scandetail id="2550500" processforstate="false" monitoringtypeon="true" releasedependency="4.5.0.1"
+		version="4.5.0.1">
+		<thresholddefaults>
+			<thresholds configurable="false" type="String" />
+		</thresholddefaults>
+		<description country="ca" language="en">The date on the machine</description>
+		<help country="ca" language="en">Help</help>
+		<popuphelp country="ca" language="en">Popup Help</popuphelp>
+		<displayname country="ca" language="en">EDF25505_DATE</displayname>
+	</scandetail>
+	<scandetail id="2550501" processforstate="false" monitoringtypeon="true" releasedependency="4.5.0.1"
+		version="4.5.0.1">
+		<thresholddefaults>
+			<thresholds configurable="false" type="String" />
+		</thresholddefaults>
+		<description country="ca" language="en">The time on the machine</description>
+		<help country="ca" language="en">Help</help>
+		<popuphelp country="ca" language="en">Popup Help</popuphelp>
+		<displayname country="ca" language="en">EDF25505_TIME</displayname>
+	</scandetail>
+	<scandetail id="2550502" processforstate="true" monitoringtypeon="true" showinreport="false"
+		releasedependency="4.5.0.1" version="5.1.0.0">
+		<thresholddefaults>
+			<thresholds configurable="true" type="Boolean">
+				<threshold high="0" low="0" state="Normal" />
+				<threshold high="1" low="1" state="Failed" />
+			</thresholds>
+		</thresholddefaults>
+		<description country="ca" language="en">Does this machine have Solitaire installed?</description>
+		<help country="ca" language="en">Help</help>
+		<popuphelp country="ca" language="en">Popup Help</popuphelp>
+		<displayname country="ca" language="en">EDF25505_SOLITAIRE</displayname>
+	</scandetail>
+</service>

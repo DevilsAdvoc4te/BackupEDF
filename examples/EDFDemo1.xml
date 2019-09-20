@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<service author="tmennie" creationdate="09/21/2006"
+    organization="N-able Technologies" syntaxversion="1.1.0.0"
+    version="4.5.0.1" xmlns="http://www.n-able.com"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.n-able.com file:///opt/nable/var/ncsai/etc/custom_service_v1_1_0_0.xsd">
+    <servicedefinition customservice="true"  dashboardid="1" dbtable="data_edf_genericapp"
+        exportable="true" displaystatus="true"  id="25501"
+        isgenericservice="true" reason="" releasedependency="4.5.0.1"
+        servicetype="EDF" version="4.5.0.1">
+        <description country="ca" language="en">EDF Demo 1 (EDF)</description>
+        <displayname country="ca" language="en">EDF Demo 1 (EDF)</displayname>
+        <help country="ca" language="en">This service shows off what EDF can do</help>
+        <popuphelp country="ca" language="en">Popup Help</popuphelp>
+        <serviceparameters aggregatedata="true" aggregatetasks="false"
+            maxinstances="32" maxpollrate="1440" minpollrate="5"
+            schedulertype="Interval Based Scheduler"
+            serviceinstancetype="Single" timetostale="1440"/>	
+	<scandetails>
+            <scandetailid>2550100</scandetailid>
+            <scandetailid>2550101</scandetailid>
+        </scandetails>	
+        <moduleparameters>
+            <moduleparameter key="scan_interval" max="1440" min="5"
+                phardcoded="true" preferredident="false" type="Integer" value="30">
+                <shortdescription country="ca" language="en">Scan Interval</shortdescription>
+                <longdescription country="ca" language="en">Task scan interval</longdescription>
+                <help country="ca" language="en">The number of minutes between scans.</help>
+            </moduleparameter>
+        </moduleparameters>
+    </servicedefinition>
+		
+    <scandetail id="2550100" processforstate="false" monitoringtypeon="true" releasedependency="4.5.0.1" version="4.5.0.1">
+        <thresholddefaults>
+            <thresholds configurable="false" type="String"/>
+        </thresholddefaults>
+        <description country="ca" language="en">The first line matched regex.</description>
+        <help country="ca" language="en">Help</help>
+        <popuphelp country="ca" language="en">Popup Help</popuphelp>
+        <displayname country="ca" language="en">EDF_25501_REGLINE</displayname>
+    </scandetail>
+    <scandetail id="2550101" processforstate="true" monitoringtypeon="true" releasedependency="4.5.0.1" version="5.1.0.0" unit="Lines" unitcategory="Number">
+        <thresholddefaults>
+            <thresholds configurable="true" type="uint32">
+                <threshold high="4294967295" low="1" state="Normal"/>
+                <threshold high="0" low="0" state="Failed"/>
+            </thresholds>
+        </thresholddefaults>
+        <description country="ca" language="en">The line count that matched regex.</description>
+        <help country="ca" language="en">Help</help>
+        <popuphelp country="ca" language="en">Popup Help</popuphelp>
+        <displayname country="ca" language="en">EDF_25501_REGCOUNT</displayname>
+    </scandetail>
+</service>

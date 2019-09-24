@@ -3,8 +3,6 @@ $hashTable = @{};
 $logging = "C:\logging";
 $activationcode = "2de3096d-15d84c";
 $CPATH="axis\WEB-INF\lib\commons-collections-2.1.1.jar;axis\WEB-INF\lib\jline.jar;axis\WEB-INF\lib\axis.jar;axis\WEB-INF\lib\commons-digester.jar;axis\WEB-INF\lib\log4j-1.2.8.jar;axis\WEB-INF\lib\bcprov-jdk14-126.jar;axis\WEB-INF\lib\commons-discovery.jar;axis\WEB-INF\lib\jaxrpc.jar;axis\WEB-INF\lib\saaj.jar;axis\WEB-INF\lib\commons-beanutils.jar;axis\WEB-INF\lib\commons-logging.jar;axis\WEB-INF\lib\wsdl4j.jar;axis\WEB-INF\lib\dmsapi.jar;jar\EDFGenApp.jar;resources";
-$argu = "{0} {1}:{2} {3}:{4}" -f $activationcode, $scanDetailName1, $scanDetailValue1, $scanDetailName2, $scanDetailValue2;
-$fullArgs = "-cp $CPATH com.nable.server.edf.GenericApp.EDFGenericApp $argu";
 
 ###############################################################################
 # DEBUG: Only used for DEBUG environment
@@ -70,6 +68,8 @@ $hashTable.Files.Copied;
 $hashTable.Bytes.Failed;
 Write-Host "DEBUG: END";
 
+$hashTable | ConvertTo-Json > hash.json;
+
 # Is it running?
 # 0 = true, 1 = false, or you can switch by thresholds.
 $scanDetailName1 = "SD1431628_EDF_1";
@@ -77,10 +77,14 @@ $scanDetailValue1 = 0;
 
 # Date
 $scanDetailName2 = "SD1431628_EDF_2";
-$scanDetailValue2 = Get-Date -Format yyyy;
+$scanDetailValue2 = Get-Date -Format yyyy-MM-dd;
 
 Write-Host Activation Key = $activationcode;
 Write-Host "$scanDetailName1 = $scanDetailValue1";
 Write-Host "$scanDetailName2 = $scanDetailValue2";
 
+$argu = "{0} {1}:{2} {3}:{4}" -f $activationcode, $scanDetailName1, $scanDetailValue1, $scanDetailName2, $scanDetailValue2;
+$fullArgs = "-cp $CPATH com.nable.server.edf.GenericApp.EDFGenericApp $argu";
+
+#Write-Host "Not sending, work is commented out."
 Start-Process java -ArgumentList "$fullArgs" -Wait -NoNewWindow
